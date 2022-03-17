@@ -1,0 +1,6 @@
+<div class="list-group">
+  <div class="list-group-item" *ngFor="let item of items" [appSelectable]="item">
+    {{ item.name }}
+  </div>
+</div>
+ <input class="form-control" (keyup.enter)="addItem($event)">

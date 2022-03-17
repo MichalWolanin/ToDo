@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>
+        Welcome to {{ title }}!
+      </h1>
+     <div class="row">
+       <div class="col">
+         <button (click)="hide = !hide">Toggle</button>
+         <app-items-list *ngIf="!hide"></app-items-list>
+       </div>
+       <div class="col">
+         <button (click)="hide2 = !hide2">Toggle</button>
+         <app-items-list *ngIf="!hide2"></app-items-list>
+       </div>
+     </div>
+    </div>
+  </div>
+</div>
