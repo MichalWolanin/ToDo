@@ -1,22 +1,22 @@
 {
   "name": "frontend",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "to-do",
-  "sourceRoot": "frontend/src",
+  "sourceRoot": "apps/frontend/src",
   "tags": [],
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/frontend",
-        "index": "frontend/src/index.html",
-        "main": "frontend/src/main.ts",
+        "outputPath": "dist/apps/frontend",
+        "index": "apps/frontend/src/index.html",
+        "main": "apps/frontend/src/main.ts",
         "polyfills": ["zone.js"],
-        "tsConfig": "frontend/tsconfig.app.json",
-        "assets": ["frontend/src/favicon.ico", "frontend/src/assets"],
-        "styles": ["frontend/src/styles.scss"],
+        "tsConfig": "apps/frontend/tsconfig.app.json",
+        "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
+        "styles": ["apps/frontend/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -68,14 +68,14 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["frontend/**/*.ts", "frontend/**/*.html"]
+        "lintFilePatterns": ["apps/frontend/**/*.ts", "apps/frontend/**/*.html"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "frontend/jest.config.ts",
+        "jestConfig": "apps/frontend/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
