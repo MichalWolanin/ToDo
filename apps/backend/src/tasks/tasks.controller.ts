@@ -10,18 +10,18 @@ export class TasksController {
   async addTask(
     @Body('title') taskTitle: string,
     @Body('taskStatus') taskStatus: boolean,
-  ) {
+  ): Promise<{ id: string}> {
     const generatedId = await this.tasksService.insertTask( taskTitle, taskStatus, );
     return { id: generatedId };
   }
 
   @Get()
-  async getAllTasks() {
+  async getAllTasks(): Promise<{ id: string; title: string; taskStatus: boolean }[]> {
     return await this.tasksService.getTasks();
   }
 
   @Get(':id')
-  getTask(@Param('id') taskId: string) {
+  getTask(@Param('id') taskId: string): Promise<{ id: string; title: string; taskStatus: boolean }>{
     return this.tasksService.getSingleTask(taskId);
   }
 
@@ -30,13 +30,13 @@ export class TasksController {
     @Param('id') taskId:string,
     @Body('title') taskTitle: string,
     @Body('taskStatus') taskStatus: boolean,
-  ) {
+  ): Promise<void> {
     await this.tasksService.updateTask(taskId, taskTitle, taskStatus);
     return null;
   }
 
   @Delete(':id')
-  async removeTask(@Param('id') taskId: string) {
+  async removeTask(@Param('id') taskId: string): Promise<void> {
     await this.tasksService.deleteTask(taskId);
     return null;
   }

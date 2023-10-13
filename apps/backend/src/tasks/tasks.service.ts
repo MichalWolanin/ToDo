@@ -9,7 +9,7 @@ export class TasksService {
     @InjectModel('Task') private readonly taskModel: Model<Task>
   ) {}
 
-  async insertTask(title: string, taskStatus: boolean) {
+  async insertTask(title: string, taskStatus: boolean): Promise<string> {
     const newTask = new this.taskModel({
       title,
       taskStatus,
@@ -18,7 +18,7 @@ export class TasksService {
     return result.id as string;
   }
 
-  async getTasks() {
+  async getTasks(): Promise<{ id: string; title: string; taskStatus: boolean }[]> {
     const tasks = await this.taskModel.find().exec();
     return tasks.map((task) => ({
       id: task.id,
@@ -27,7 +27,7 @@ export class TasksService {
     }));
   }
 
-  async getSingleTask(taskId: string) {
+  async getSingleTask(taskId: string): Promise<{ id: string; title: string; taskStatus: boolean }> {
     const task = await this.findTask(taskId);
     return {
       id: task.id,
@@ -40,7 +40,7 @@ export class TasksService {
     taskId: string,
     title: string,
     taskStatus: boolean,
-    ) {
+    ): Promise<void> {
     const updatedTask = await this.findTask(taskId);
     if (title) {
       updatedTask.title = title;
@@ -50,7 +50,7 @@ export class TasksService {
     }
     updatedTask.save();
   }
-  async deleteTask(taskId: string) {
+  async deleteTask(taskId: string): Promise<void> {
     const result = await this.taskModel.deleteOne({_id: taskId}).exec();
     if (result.deletedCount === 0) {
       throw new NotFoundException('Could not find task.');
