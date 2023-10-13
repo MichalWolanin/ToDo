@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose'
+import { MongooseModule } from '@nestjs/mongoose';
+import config from "../../config";
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {TasksModule} from "../tasks/tasks.module";
+import { TasksModule } from "../tasks/tasks.module";
 
 @Module({
-  imports: [TasksModule, MongooseModule.forRoot(
-    'mongodb+srv://Adam:8gTkXvrRdxZkTiq9@todo-list.42vanlf.mongodb.net/task-details?retryWrites=true&w=majority')
-  ],
+  imports: [TasksModule, MongooseModule.forRoot(config.mongodbUri)],
   controllers: [AppController],
   providers: [AppService],
 })
