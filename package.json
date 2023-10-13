@@ -2,7 +2,11 @@
   "name": "@to-do/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start.frontend": "nx serve frontend",
+    "start.backend": "nx serve backend",
+    "start.backend.development": "nx run backend:serve:development"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.2.0",
@@ -15,9 +19,12 @@
     "@angular/router": "~16.2.0",
     "@nestjs/common": "^10.0.2",
     "@nestjs/core": "^10.0.2",
+    "@nestjs/mongoose": "^10.0.1",
     "@nestjs/platform-express": "^10.0.2",
     "@nrwl/angular": "^16.10.0",
     "axios": "^1.0.0",
+    "mongodb": "^6.1.0",
+    "mongoose": "^7.6.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
     "tslib": "^2.3.0",
@@ -45,6 +52,7 @@
     "@nx/workspace": "16.10.0",
     "@schematics/angular": "~16.2.0",
     "@types/jest": "^29.4.0",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "~18.7.1",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
