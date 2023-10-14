@@ -1,73 +1,67 @@
-import {Injectable, NotFoundException} from "@nestjs/common";
-import { Task } from "./task.model";
-import { InjectModel } from '@nestjs/mongoose'
-import { Model } from "mongoose";
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Task } from './models/task.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { UpdateTaskRequest } from './models/update-task-request.model';
+import { CreateTaskRequest } from './models/create-task-request.model';
 
 @Injectable()
 export class TasksService {
-  constructor(
-    @InjectModel('Task') private readonly taskModel: Model<Task>
-  ) {}
+  constructor(@InjectModel('Task') private readonly taskModel: Model<Task>) {}
 
-  async insertTask(title: string, taskStatus: boolean): Promise<string> {
+  async insertTask(createTaskRequest: CreateTaskRequest): Promise<string> {
     const newTask = new this.taskModel({
-      title,
-      taskStatus,
+      title: createTaskRequest.title,
     });
     const result = await newTask.save();
     return result.id as string;
   }
 
-  async getTasks(): Promise<{ id: string; title: string; taskStatus: boolean }[]> {
+  async getTasks(): Promise<{ id: string; title: string; isDone: boolean }[]> {
     const tasks = await this.taskModel.find().exec();
     return tasks.map((task) => ({
       id: task.id,
       title: task.title,
-      taskStatus: task.taskStatus,
+      isDone: task.isDone,
     }));
   }
 
-  async getSingleTask(taskId: string): Promise<{ id: string; title: string; taskStatus: boolean }> {
+  async getSingleTask(
+    taskId: string
+  ): Promise<{ id: string; title: string; isDone: boolean }> {
     const task = await this.findTask(taskId);
     return {
       id: task.id,
       title: task.title,
-      taskStatus: task.taskStatus
+      isDone: task.isDone,
     };
   }
 
   async updateTask(
     taskId: string,
-    title: string,
-    taskStatus: boolean,
-    ): Promise<void> {
-    const updatedTask = await this.findTask(taskId);
-    if (title) {
-      updatedTask.title = title;
+    updateTaskRequest: UpdateTaskRequest
+  ): Promise<void> {
+    const taskToUpdate = await this.findTask(taskId);
+    if (updateTaskRequest.title) {
+      taskToUpdate.title = updateTaskRequest.title;
     }
-    if (taskStatus) {
-      updatedTask.taskStatus = taskStatus;
+    if (updateTaskRequest.isDone) {
+      taskToUpdate.isDone = updateTaskRequest.isDone;
     }
-    updatedTask.save();
+    await taskToUpdate.save();
   }
   async deleteTask(taskId: string): Promise<void> {
-    const result = await this.taskModel.deleteOne({_id: taskId}).exec();
+    const result = await this.taskModel.deleteOne({ _id: taskId }).exec();
     if (result.deletedCount === 0) {
       throw new NotFoundException('Could not find task.');
     }
   }
 
   private async findTask(id: string): Promise<Task> {
-    let task;
     try {
-      task = await this.taskModel.findById(id).exec()
+      return await this.taskModel.findById(id).exec();
     } catch (error) {
       throw new NotFoundException('Could not find task.');
     }
-
-    if (!task) {
-      throw new NotFoundException('Could not find task.');
-    }
-    return task;
   }
 }
