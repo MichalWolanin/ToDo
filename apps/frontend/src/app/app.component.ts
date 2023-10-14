@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
+  imports: [ DashboardComponent],
   selector: 'to-do-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
