@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment';
 import { CreateTaskRequest } from '../models/create-task-request.model';
 import { Observable } from 'rxjs';
 import { Task } from '../models/get-task.model';
-import { UpdateTaskRequest } from '../../../../backend/src/tasks/models/update-task-request.model';
+import { UpdateTaskRequest } from '../models/update-task-request.model';
 
 @Injectable({
   providedIn: 'root',

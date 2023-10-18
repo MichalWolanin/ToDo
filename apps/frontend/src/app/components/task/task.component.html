@@ -1,17 +1,17 @@
 <div class="list-group-item mb-2 border py-3 rounded-3">
-    <i class="text-success" (click)="toggleDoneStatus.emit(task)"
-       [ngClass]="task.isDone? 'fa-solid fa-circle-check':'fa-regular fa-circle'"></i>
-    <span (click)="showInput()">{{ task.title }}</span>
+    <i class="text-success" (click)="toggleDoneStatus.emit()"
+       [ngClass]="task.isDone ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'"></i>
+    <span *ngIf="!isInputDisplayed" (click)="showInput()">{{ task.title }}</span>
     <div>
-        <input class="form-control border-0 py-3 shadow-none"
-               placeholder="Type your task here."
-               *ngIf="isInputDisplayed"
-               [formControl]="titleControl"
+        <input *ngIf="isInputDisplayed"
+                class="form-control border-0 py-3 shadow-none"
+                placeholder="Type your task here."
+                [formControl]="titleControl"
         >
             <i class="bi bi-check2 custom-icon" (click)="confirmEditTitle()"></i>
             <i class="bi bi-x custom-icon" (click)="hideInput()"></i>
     </div>
     <span class="float-end text-secondary">
-        <i class="fa-solid fa-trash-can" (click)="onDeleteTask(task)"></i>
+        <i class="fa-solid fa-trash-can" (click)="onDeleteTask()"></i>
     </span>
 </div>
