@@ -1,5 +1,4 @@
-export interface Task {
-  id: string;
+export interface UpdateTaskRequest {
   title: string;
   isDone: boolean;
 }
