@@ -1,14 +1,8 @@
 <div class="list-group">
-  <div class="list-group-item mb-2 border py-3 rounded-3" *ngFor="let task of tasks$ | async">
-  <div>
-    {{ task.title }}
-    <i class="text-success"></i>
-    <span class="float-end text-secondary">
-      <i class="fa-solid fa-trash-can"></i>
-    </span>
-    <i class="text-success" (click)="updateTask(task)"
-       [ngClass]="task.isDone? 'fa-solid fa-circle-check':'fa-regular fa-circle'"></i>
-  </div>
-  </div>
+    <to-do-task *ngFor="let task of tasks$ | async"
+            [task]="task"
+            (toggleDoneStatus)="onToggleDoneStatus($event)"
+                (editTitle)="onEditTitle()"
+    ></to-do-task>
 </div>
 

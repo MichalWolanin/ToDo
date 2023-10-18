@@ -1,16 +1,16 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
-import { Observable } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TaskComponent } from '../task/task.component';
+import { Task } from '../../models/get-task.model';
 import { UpdateTaskRequest } from '../../models/update-task-request.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Task } from '../../models/get-task.model';
 
 @Component({
   selector: 'to-do-tasks-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TaskComponent],
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss'],
 })
@@ -20,7 +20,7 @@ export class TasksListComponent {
 
   constructor(private taskService: TaskService) {}
 
-  updateTask(task: Task): void {
+  onToggleDoneStatus(task: Task): void {
     const updateTaskRequest: UpdateTaskRequest = {
       title: task.title,
       isDone: !task.isDone,
@@ -29,8 +29,9 @@ export class TasksListComponent {
       .updateTask(task.id, updateTaskRequest)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
-        this.tasks$ = this.taskService.getTasks();
-        console.log('update');
+        // this.tasks$ = this.taskService.getTasks();
       });
   }
+
+  onEditTitle() {}
 }

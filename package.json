@@ -25,6 +25,7 @@
     "@nrwl/angular": "^16.10.0",
     "axios": "^1.0.0",
     "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.1",
     "mongodb": "^6.1.0",
     "mongoose": "^7.6.1",
     "reflect-metadata": "^0.1.13",
