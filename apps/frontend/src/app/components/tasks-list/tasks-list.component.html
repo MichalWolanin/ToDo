@@ -2,7 +2,7 @@
     <to-do-task *ngFor="let task of tasks$ | async"
             [task]="task"
             (toggleDoneStatus)="onToggleDoneStatus($event)"
-                (editTitle)="onEditTitle()"
+                (editTitle)="onEditTitle(task)"
     ></to-do-task>
 </div>
 

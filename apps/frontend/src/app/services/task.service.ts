@@ -28,4 +28,8 @@ export class TaskService {
   ): Observable<void> {
     return this.http.patch<void>(`${this.API_URL}/${id}`, updateTaskRequest);
   }
+
+  deleteTask(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.API_URL}/${id}`);
+  }
 }

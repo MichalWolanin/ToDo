@@ -16,6 +16,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class TasksListComponent {
   tasks$ = this.taskService.getTasks();
+  editingTaskTitle: string | null = null;
   private destroyRef = inject(DestroyRef);
 
   constructor(private taskService: TaskService) {}
@@ -33,5 +34,5 @@ export class TasksListComponent {
       });
   }
 
-  onEditTitle() {}
+  onEditTitle(task: Task) {}
 }

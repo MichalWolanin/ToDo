@@ -10,7 +10,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/get-task.model';
-import { UpdateTaskRequest } from '../../models/update-task-request.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
@@ -27,6 +26,8 @@ export class TaskComponent implements OnInit {
   @Output() editTitle = new EventEmitter<Task>();
   isInputDisplayed = false;
   titleControl = new FormControl();
+  private destroyRef = inject(DestroyRef);
+
   constructor(private taskService: TaskService) {}
 
   ngOnInit() {
@@ -44,5 +45,12 @@ export class TaskComponent implements OnInit {
   confirmEditTitle() {
     this.isInputDisplayed = false;
     this.editTitle.emit(this.task);
+  }
+
+  onDeleteTask(task: Task): void {
+    this.taskService
+      .deleteTask(task.id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {});
   }
 }
