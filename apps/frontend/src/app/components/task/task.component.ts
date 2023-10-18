@@ -17,10 +17,12 @@ export class TaskComponent {
   @Output() deleteTask = new EventEmitter<void>();
   isInputDisplayed = false;
   titleControl = new FormControl('', { nonNullable: true });
+  isEditingTitle = false;
 
   showInput(): void {
     this.isInputDisplayed = true;
     this.titleControl.patchValue(this.task.title);
+    this.isEditingTitle = true;
   }
 
   hideInput(): void {
@@ -31,6 +33,7 @@ export class TaskComponent {
     this.isInputDisplayed = false;
     const newTitle = this.titleControl.value;
     this.editTitle.emit(newTitle);
+    this.isEditingTitle = false;
   }
 
   onDeleteTask(): void {

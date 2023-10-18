@@ -1,17 +1,15 @@
-<div class="list-group-item mb-2 border py-3 rounded-3">
-    <i class="text-success" (click)="toggleDoneStatus.emit()"
+<div class="list-group-item mb-2 border py-3 rounded-3 d-flex align-items-center mx-2">
+    <i class="text-success d-inline-block me-2" (click)="toggleDoneStatus.emit()"
        [ngClass]="task.isDone ? 'fa-solid fa-circle-check' : 'fa-regular fa-circle'"></i>
-    <span *ngIf="!isInputDisplayed" (click)="showInput()">{{ task.title }}</span>
-    <div>
-        <input *ngIf="isInputDisplayed"
-                class="form-control border-0 py-3 shadow-none"
-                placeholder="Type your task here."
-                [formControl]="titleControl"
-        >
-            <i class="bi bi-check2 custom-icon" (click)="confirmEditTitle()"></i>
+    <span *ngIf="!isInputDisplayed; else editingTemplate" class="d-inline-block" (click)="showInput()">{{ task.title }}</span>
+    <ng-template #editingTemplate>
+        <input class="form-control border-0 py-3 shadow-none" placeholder="Type your task here." [formControl]="titleControl">
+        <div class="d-flex align-items-center mt-2">
+            <i class="bi bi-check2 custom-icon me-2" (click)="confirmEditTitle()"></i>
             <i class="bi bi-x custom-icon" (click)="hideInput()"></i>
-    </div>
-    <span class="float-end text-secondary">
+        </div>
+    </ng-template>
+    <span class="text-secondary d-flex flex-column align-items-center ms-auto">
         <i class="fa-solid fa-trash-can" (click)="onDeleteTask()"></i>
     </span>
 </div>

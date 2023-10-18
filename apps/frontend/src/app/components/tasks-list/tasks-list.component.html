@@ -15,10 +15,9 @@
             </div>
         </ul>
     </div>
-
     <to-do-task *ngFor="let task of tasks$ | async"
-            [task]="task"
-            (toggleDoneStatus)="onToggleDoneStatus(task)"
+                [task]="task"
+                (toggleDoneStatus)="onToggleDoneStatus(task)"
                 (editTitle)="onEditTitle(task, $event)"
                 (deleteTask)="onDeleteTask(task)"
     ></to-do-task>
